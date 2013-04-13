@@ -1,8 +1,9 @@
 module VCR
   class Cassette
     class Serializers
-      module Yxml
-        include Syck
+      module Xsyck
+        extend EncodingErrorHandling
+        extend Syck
         extend self
 
         def serialize(hash)
