@@ -17,7 +17,6 @@ module VCR
       private
 
       def construct_message
-        binding.pry
         header = "\n" + "=" * 80 + "\n"
         body = [
          header_diff,

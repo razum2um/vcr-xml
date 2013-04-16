@@ -55,4 +55,5 @@ VCR::Cassette::Serializers.send :extend, XsyckSerializer
 VCR::RequestHandler.send :extend, XmlRequestHandler
 VCR::RequestMatcherRegistry.send :extend, ExtendedMatcherRegistry
 VCR::Configuration.send :include, ExtendedConfiguration
+VCR::RequestMatcherRegistry.const_set :DEFAULT_MATCHERS, [:headers, :"xpath://Body"]
 I18n.load_path.unshift *Dir[File.expand_path('../vcr/locales/*.yml', __FILE__)]
