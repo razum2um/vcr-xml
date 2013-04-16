@@ -22,7 +22,8 @@ module VCR
          header_diff,
          body_matchers,
          body_diff,
-         formatted_suggestions,
+         translated_cassette_description,
+         translated_suggestions,
         ].join("\n\n")
         footer = "\n" + "=" * 80 + "\n"
 

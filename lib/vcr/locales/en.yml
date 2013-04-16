@@ -1,5 +1,16 @@
 en:
   vcr:
+    cassette: |
+      VCR is currently using the following cassette:
+        - %{file}
+        - :record => %{mode}
+        - :match_requests_on => %{matchers}\n
+      Under the current configuration VCR can not find a suitable HTTP interaction
+      to replay and is prevented from recording new requests. There are a few ways
+      you can deal with this:
+    no_cassette: |
+      There is currently no cassette in use. There are a few ways
+      you can configure VCR to handle this request:
     suggestions:
       use_new_episodes: |
         You can use the :new_episodes record mode to allow VCR to
