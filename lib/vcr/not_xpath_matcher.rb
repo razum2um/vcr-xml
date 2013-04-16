@@ -1,8 +1,8 @@
 module VCR
-  class NotXpathMatcher < Struct.new(:not_xpath)
+  class NotXpathMatcher < Struct.new(:xpath)
     def matches?(request, expected_request)
       node = extract_xpath(request.body)
-      expected_node = expected_xpath(expected_request.body)
+      expected_node = extract_xpath(expected_request.body)
 
       EquivalentXml.equivalent? node, expected_node
     end

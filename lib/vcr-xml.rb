@@ -20,10 +20,6 @@ module XsyckSerializer
   end
 end
 
-VCR::Cassette::Serializers.send :extend, XsyckSerializer
-
-VCR::RequestHandler.send :extend, XmlRequestHandler
-
 module ExtendedMatcherRegistry
   def new(*args, &blk)
     super(*args, &blk).extend(InstanceMethods)
@@ -44,4 +40,19 @@ module ExtendedMatcherRegistry
   end
 end
 
+module ExtendedConfiguration
+  extend ActiveSupport::Concern
+  included do
+    attr_writer :locale
+  end
+
+  def locale
+    @locale ||= :en
+  end
+end
+
+VCR::Cassette::Serializers.send :extend, XsyckSerializer
+VCR::RequestHandler.send :extend, XmlRequestHandler
 VCR::RequestMatcherRegistry.send :extend, ExtendedMatcherRegistry
+VCR::Configuration.send :include, ExtendedConfiguration
+I18n.load_path.unshift *Dir[File.expand_path('../vcr/locales/*.yml', __FILE__)]
