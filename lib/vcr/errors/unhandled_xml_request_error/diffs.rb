@@ -1,3 +1,5 @@
+require 'diffy'
+
 module VCR::Errors::UnhandledXmlRequestError::Diffs
   def header_diff
     return if !matched_by_headers? || header_diff_keys.empty?
@@ -16,7 +18,7 @@ module VCR::Errors::UnhandledXmlRequestError::Diffs
   end
 
   def diff(xml1, xml2)
-    Diffy::Diff.new(xml1, xml2, context: 2).to_s(:color)
+    ::Diffy::Diff.new(xml1, xml2, context: 2).to_s(:color)
   end
 
   def format(nodes)
