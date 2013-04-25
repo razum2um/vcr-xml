@@ -8,8 +8,8 @@ module VCR
 
         def serialize(hash)
           hash['http_interactions'].each do |i|
-            pretty_xml i['request']['body']['string'] if /<xml/.match i['request']['body']['string']
-            pretty_xml i['response']['body']['string'] if /<xml/.match i['response']['body']['string']
+            pretty_xml i['request']['body']['string'] if /<\?xml/.match i['request']['body']['string']
+            pretty_xml i['response']['body']['string'] if /<\?xml/.match i['response']['body']['string']
           end
           super(hash)
         end
