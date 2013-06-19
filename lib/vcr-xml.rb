@@ -3,6 +3,7 @@ require 'vcr/errors/unhandled_xml_request_error'
 require 'vcr/request_handler'
 require 'vcr/xml_request_handler'
 require 'vcr/xpath_matcher'
+require 'vcr/header_matcher'
 require 'vcr/not_xpath_matcher'
 
 module XsyckSerializer
@@ -28,11 +29,14 @@ module ExtendedMatcherRegistry
   module InstanceMethods
     def [](matcher)
       @registry.fetch(matcher) do
-        marker, xpath = matcher.to_s.split /^xpath:/
+        marker, xpath = matcher.to_s.split(/^xpath:/)
         return VCR::XpathMatcher.new(xpath) if xpath
 
-        marker, notxpath = matcher.to_s.split /^notxpath:/
+        marker, notxpath = matcher.to_s.split(/^notxpath:/)
         return VCR::NotXpathMatcher.new(notxpath) if notxpath
+
+        marker, keys = matcher.to_s.split(/^headers:\/\//)
+        return VCR::HeaderMatcher.new(keys.split(',')) if keys.split(',').present?
 
         super
       end
@@ -55,5 +59,5 @@ VCR::Cassette::Serializers.send :extend, XsyckSerializer
 VCR::RequestHandler.send :extend, XmlRequestHandler
 VCR::RequestMatcherRegistry.send :extend, ExtendedMatcherRegistry
 VCR::Configuration.send :include, ExtendedConfiguration
-VCR::RequestMatcherRegistry.const_set :DEFAULT_MATCHERS, [:headers, :"xpath://Body"]
-I18n.load_path.unshift *Dir[File.expand_path('../vcr/locales/*.yml', __FILE__)]
+VCR::RequestMatcherRegistry.const_set :DEFAULT_MATCHERS, [:"headers://^Accept-Encoding", :"xpath://Body"]
+I18n.load_path.unshift(*Dir[File.expand_path('../vcr/locales/*.yml', __FILE__)])

@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.3"
+  spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
 
   spec.add_dependency "vcr", "~> 2.3"
@@ -28,4 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "equivalent-xml", "~> 0.3.0"
   spec.add_dependency "activesupport", ">= 3.2.0"
   spec.add_dependency "i18n", ">= 0.5.0"
+  spec.add_dependency "syck" if RUBY_VERSION >= "2.0.0"
 end
