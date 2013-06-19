@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Vlad Bokov"]
   spec.email         = ["razum2um@mail.ru"]
   spec.description   = %q{Easier SOAP with VCR}
-  spec.summary       = %q{Easier SOAP with VCR}
-  spec.homepage      = ""
+  spec.summary       = %q{Easier SOAP with VCR - better formatted failed expectation while comparing XML}
+  spec.homepage      = "http://github.com/razum2um/vcr-xml"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -28,5 +28,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency "equivalent-xml", "~> 0.3.0"
   spec.add_dependency "activesupport", ">= 3.2.0"
   spec.add_dependency "i18n", ">= 0.5.0"
-  spec.add_dependency "syck" if RUBY_VERSION >= "2.0.0"
 end
