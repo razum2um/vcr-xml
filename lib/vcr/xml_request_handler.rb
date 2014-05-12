@@ -5,7 +5,7 @@ module XmlRequestHandler
 
   module InstanceMethods
     def on_unhandled_request
-      if /<\?xml/.match(vcr_request.body) && ENV['HEADLESS'] != 'true'
+      if ENV['HEADLESS'] != true && !VCR.http_interactions.is_a?(VCR::Cassette::HTTPInteractionList::NullList) && /<\?xml/.match(vcr_request.body)
         raise VCR::Errors::UnhandledXmlRequestError.new(vcr_request)
       else
         super
