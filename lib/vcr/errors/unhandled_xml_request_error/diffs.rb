@@ -18,7 +18,11 @@ module VCR::Errors::UnhandledXmlRequestError::Diffs
   end
 
   def diff(xml1, xml2)
-    ::Diffy::Diff.new(xml1, xml2, context: 2).to_s(:color)
+    if defined?(RSpec) && !(color = (RSpec.configuration.color rescue nil)).nil? && color == false
+      ::Diffy::Diff.new(xml1, xml2, context: 2).to_s
+    else
+      ::Diffy::Diff.new(xml1, xml2, context: 2).to_s(:color)
+    end
   end
 
   def format(nodes)
